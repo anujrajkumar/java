@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+.example-spacer {
+    flex: 1 1 auto;
+    }
+    .mat-list-icon {
+        color: rgba(0, 0, 0, 0.54);
+      }
+      table {
+        width: 100%;
+        vertical-align: bottom;
+      }
+      .mat-cell {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
