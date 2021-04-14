@@ -1,0 +1,32 @@
+parameters:
+    name: ''
+
+
+steps:
+- task: NodeTool@1
+  displayName: 'ng build'
+  inputs:
+      workingDir: '$(System.DefaultWorkingDirectory)'
+        # verbose: false
+        # versionSpec: '10.x'
+- script: |
+      npm i -g @angular/cli
+      npm i karma-junit-reporter --save-dev
+      npm i --save @angular-devkit/build-angular
+      npm i puppeteer --save-dev
+      ng build --prod
+    
+- task: ArchiveFiles@2
+  inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+        includeRootFolder: true
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+  displayName: Archiving the content
+
+- task: PublishPipelineArtifact@1
+  inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      artifact: 'angular'
+      publishLocation: 'pipeline'
